@@ -1,5 +1,5 @@
 <div [ngStyle]="{'min-height':'calc(100vh - 80px)'}" class="container mx-auto p-4 shadow-lg  max-w-6xl">
-  <div *ngIf="filteredTasks.length; else noShow">
+  <div *ngIf="tasks.length ; else noShow">
     <div class="flex mb-4">
       <img class="w-7 h-7 pr-2" src="assets/img/filter.svg" alt="filter icon">
       <label class="mr-4">
