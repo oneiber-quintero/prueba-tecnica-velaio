@@ -1,0 +1,100 @@
+<div [ngStyle]="{'min-height':'calc(100vh - 80px)'}" class="container mx-auto p-4 shadow-lg  max-w-6xl">
+
+  <div class="container mx-auto p-4">
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+
+      <div class="flex justify-end">
+        <button [disabled]="taskForm.invalid" [ngClass]="taskForm.invalid ?'bg-gray-400': 'bg-blue-400'" type="submit"
+          class="p-2 text-white rounded-md">Guardar Tarea</button>
+      </div>
+
+      <div class="mb-4">
+        <label for="name">Nombre de la Tarea</label>
+        <input id="name" formControlName="name" class="border-[1px] p-1 focus:outline-blue-400 w-full" />
+        <small *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched" class="text-red-500">
+          El nombre es requerido.
+        </small>
+      </div>
+
+      <div class="mb-4">
+        <label for="date">Fecha Límite</label>
+        <input id="date" type="date" formControlName="date" class="border-[1px] p-1 focus:outline-blue-400 w-full" />
+        <small *ngIf="taskForm.get('date')?.invalid && taskForm.get('date')?.touched" class="text-red-500">
+          La fecha límite es requerida.
+        </small>
+      </div>
+
+      <div formArrayName="people">
+
+        <div *ngFor="let person of people.controls; let i = index" [formGroupName]="i"
+          class="mb-4 border p-4 rounded shadow-xl">
+          <div class="flex justify-between">
+            <label for="personName" class="font-semibold">{{i + 1}}. Nombre de la Persona</label>
+            <button class="rounded-full w-8 h-8 flex justify-center items-center" (click)="removePerson(i)"
+              title="Eliminar persona">
+              <img class="w-5 h-5" src="assets/img/trash.svg" alt="icon trash">
+            </button>
+          </div>
+
+          <input id="personName" formControlName="name" class="border-[1px] p-1 focus:outline-blue-400 w-full" />
+
+          <small *ngIf="person.get('name')?.invalid && person.get('name')?.touched" class="text-red-500">
+            El nombre invalido.
+          </small>
+          <small
+            *ngIf="people.errors && people.errors['duplicateNames'] && people.errors['duplicates'].includes(person.get('name')?.value)"
+            class="text-red-500">
+            Los nombres de las personas deben ser únicos.
+          </small>
+
+          <div class="mb-4">
+            <label for="name">Edad</label>
+            <input id="age" type="number" formControlName="age"
+              class="border-[1px] p-1 focus:outline-blue-400 w-full" />
+            <small *ngIf="person.get('age')?.invalid && person.get('age')?.touched" class="text-red-500">
+              La edad de ser mayor a 18 años.
+            </small>
+          </div>
+
+          <div formArrayName="skills" class="mt-4">
+            <label class="font-semibold">Habilidades</label>
+            <div *ngFor="let skill of getSkills(i).controls; let j = index" [formGroupName]="j" class="mb-2"
+              title="Eliminar habilidad">
+              <div class="flex w-full">
+                <input formControlName="skill" class="border-[1px] p-1 focus:outline-blue-400 w-full" />
+                <button class="rounded-full w-8 h-8 flex justify-center items-center" (click)="removeSkill(i, j)">
+                  <img class="w-5 h-5" src="assets/img/trash.svg" alt="icon trash">
+                </button>
+              </div>
+
+              <small *ngIf="skill?.invalid && skill?.touched" class="text-red-500">
+                habilidad es requerida
+              </small>
+            </div>
+
+            <small *ngIf="people.errors && people.errors['noSkills']" class="text-red-500">
+              Cada persona debe tener al menos una habilidad.
+            </small>
+            <div class="flex justify-center">
+              <button type="button" (click)="addSkill(i)" class="flex justify-center items-center gap-2 text-gray-500">
+                <img class="w-6 h-6 bg-gray-300 rounded-full" src="assets/img/plus.svg" alt="icon trash">
+                <span>Agregar Habilidad</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center text-gray-500 mt-10">
+        <button type="button" (click)="addPerson()" class="flex justify-center items-center gap-2">
+          <img class="w-6 h-6 bg-gray-300 rounded-full" src="assets/img/plus.svg" alt="icon trash">
+          <span>Agregar Persona</span>
+        </button>
+      </div>
+
+
+
+    </form>
+  </div>
+
+</div>

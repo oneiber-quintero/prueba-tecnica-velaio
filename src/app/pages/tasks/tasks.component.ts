@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { Task, TaskFilter } from '../../interfaces/task';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css',
 })

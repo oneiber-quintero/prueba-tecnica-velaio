@@ -5,25 +5,7 @@ import { Task } from '../interfaces/task';
   providedIn: 'root',
 })
 export class TaskService {
-  private tasks: Task[] = [
-    { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    // { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    // { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    // { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    // { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    // { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    // { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    // { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    // { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    // { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    // { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-    // { id: 1, name: 'Tarea 1', date: new Date(), completed: false, userId: 1 },
-    // { id: 2, name: 'Tarea 2', date: new Date(), completed: true, userId: 2 },
-
-  ];
+  private tasks: Task[] = [];
 
   getTasks(): Task[] {
     return this.tasks;
@@ -38,5 +20,13 @@ export class TaskService {
     if (index !== -1) {
       this.tasks[index] = task;
     }
+  }
+
+  lastId() {
+    if (!this.tasks.length) return 1;
+    return this.tasks.reduce(
+      (max, item) => (item.id > max ? item.id : max),
+      this.tasks[0].id
+    );
   }
 }
