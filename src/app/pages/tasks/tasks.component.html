@@ -23,7 +23,7 @@
           <div class="flex gap-2">
             <span>{{ i + 1 }}.</span>
             <input type="checkbox" [checked]="task.completed" (change)="toggleTaskCompletion(task)" />
-            <span>{{ task.name }}</span>
+            <h2 class="font-semibold">{{ task.name }}</h2>
           </div>
           <span>{{ task.date | date:'yyyy-mm-dd'}}</span>
         </div>
@@ -31,7 +31,7 @@
           <span class="pl-2">Personas Asociadas:</span>
           <div *ngFor="let person of task.people, let i = index" class="pl-4 flex flex-col">
             <span>- {{ person.name }} ({{ person.age }})</span>
-            <span class="pl-2">Habilidades: {{ person.skills.join(',') }}</span>
+            <span class="pl-2">Habilidades: {{ person.skills.join(', ') }}</span>
           </div>
         </div>
       </li>
